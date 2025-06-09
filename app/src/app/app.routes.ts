@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
+import { ListComponent } from './list.component';
+import { DetailComponent } from './detail.component';
 
 export const routes: Routes = [
-  // TODO { path: '', component: List },
-  // { path: 'badi/:id', component: BadDetail },
+  { path: '', component: ListComponent },
+  { path: 'badi/:badidText', component: DetailComponent },
 ];

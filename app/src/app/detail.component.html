@@ -1,0 +1,11 @@
+<div *ngIf="bad; else loading">
+  <h2>{{ bad.badname }}, {{ bad.plz }} {{ bad.ort }}</h2>
+  <div *ngFor="let b of bad.becken | keyvalue">
+    <h3>{{ $any(b).value.beckenname }}: {{ $any(b).value.temp }}°</h3>
+    <p>{{ $any(b).value.typ }}, {{ $any(b).value.status }}, aktualisiert {{ $any(b).value.date_pretty }}</p>
+  </div>
+  <p [innerHTML]="bad.info"></p>
+</div>
+<ng-template #loading>
+  <p>Lade...</p>
+</ng-template>

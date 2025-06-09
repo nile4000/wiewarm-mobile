@@ -1,0 +1,22 @@
+<div class="controls">
+  <input
+    type="text"
+    placeholder="Suche"
+    [(ngModel)]="searchInput"
+    (input)="applyFilter()"
+  />
+  <select [(ngModel)]="sortBy" (change)="applyFilter()">
+    <option value="dist">Distanz</option>
+    <option value="date">Datum</option>
+  </select>
+  <button (click)="requestPosition()">Standort</button>
+</div>
+
+<ul>
+  <li *ngFor="let item of filtered">
+    <a [routerLink]="['/badi', item.badid_text]">
+      {{ item.bad }} {{ item.temp }}° - {{ item.date_pretty }} -
+      {{ item.dist ? (item.dist | number : '1.0-0') + ' m' : '?' }}
+    </a>
+  </li>
+</ul>
