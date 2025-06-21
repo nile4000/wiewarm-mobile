@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { DialogDirective } from 'src/app/shared/layout/dialog/dialog.directive';
+import { SortDialogComponent } from '../sort-dialog/sort-dialog';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
@@ -21,6 +22,7 @@ import { temperatureClass } from 'src/app/shared/util/temperature.util';
     ScrollingModule,
     RouterModule,
     DialogDirective,
+    SortDialogComponent,
   ],
 })
 export class AccordionComponent {
