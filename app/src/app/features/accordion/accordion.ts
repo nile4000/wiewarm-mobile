@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
+import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 
@@ -25,8 +26,13 @@ export class AccordionComponent {
   isOlderThanOneMonth = isOlderThanOneMonth;
   temperatureClass = temperatureClass;
 
-  constructor(private detailService: BadResourceService) {}
+  constructor(
+    private detailService: BadResourceService,
+    private favoriteService: FavoriteService
+  ) {}
   readonly badResource = this.detailService.getResource();
+
+  readonly favorite = this.favoriteService.favorite;
 
   searchInput = signal('');
   readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
@@ -37,6 +43,19 @@ export class AccordionComponent {
   setSort(field: keyof BadItem, direction: 'asc' | 'desc' = 'asc') {
     this.sortField.set(field);
     this.sortDirection.set(direction);
+  }
+
+  isFavorite(item: BadItem): boolean {
+    const fav = this.favorite();
+    return fav != null && fav.beckenid === item.beckenid;
+  }
+
+  toggleFavorite(item: BadItem) {
+    if (this.isFavorite(item)) {
+      this.favoriteService.clearFavorite();
+    } else {
+      this.favoriteService.setFavorite(item);
+    }
   }
 
   filteredItems = computed(() => {

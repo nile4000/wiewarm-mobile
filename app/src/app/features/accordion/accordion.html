@@ -30,6 +30,14 @@
     >}
   </div>
 
+  <div class="favorite-box" *ngIf="favorite() as fav">
+    <span class="favorite-name">{{ fav.becken }}</span>
+    <span class="favorite-location">{{ fav.ort }}</span>
+    <span class="favorite-temp"
+      >{{ fav.temp != null ? fav.temp + '°C' : '—' }}</span
+    >
+  </div>
+
   <!-- ToDo: use seperate component -->
   <dialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title" class="container-md">
     <div class="sort-dialog-content">
@@ -124,6 +132,13 @@
                   ></span>
                   {{ item.temp != null ? item.temp + '°C' : '—' }}
                 </span>
+                <button
+                  class="favorite-button material-icons"
+                  [attr.aria-label]="isFavorite(item) ? 'Favorit entfernen' : 'Als Favorit speichern'"
+                  (click)="toggleFavorite(item); $event.stopPropagation();"
+                >
+                  {{ isFavorite(item) ? 'star' : 'star_border' }}
+                </button>
               </span>
             </button>
           </h3>
